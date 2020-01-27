@@ -11,5 +11,6 @@ public interface CustomerDAO {
 	public int deleteCustomerDetails(String custId);
 	public Customer viewCustomerDetails(String custId);
 	public List<Customer> viewAllCustomerDetails();
+	public String getCustomerId();
 	
 }

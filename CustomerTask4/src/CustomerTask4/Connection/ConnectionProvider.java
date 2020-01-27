@@ -9,7 +9,7 @@ static Connection con = null;
 
 	public static Connection getConnection() {
 		try {
-			Class.forName("com.mysql.jdbc.Driver"); //Connection Driver Info oracle.drive.oracleDriver
+			Class.forName("com.mysql.cj.jdbc.Driver"); //Connection Driver Info oracle.drive.oracleDriver
 			
 			con = DriverManager.getConnection(url,userName,password);
  		}catch(Exception e) {

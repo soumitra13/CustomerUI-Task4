@@ -3,6 +3,7 @@ package CustomerTask4.DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,10 +35,11 @@ public class CustomerDAOImpl implements CustomerDAO{
 			statement.setString(2, custid);
 			statement.setString(3, firstName);
 			statement.setString(4, lastName);
-			statement.setDate(5, convertUtiltoSql(customer.getDateOfBirth()));
-			statement.setString(6, customer.getGender());
-			statement.setString(7, customer.getCustomerCreditCardType());
+			statement.setDate(5, convertUtiltoSql(customer.getDateOfBirth()));			
+			statement.setString(6, customer.getCustomerCreditCardType());
+			statement.setBoolean(7, customer.getGender());
 			int rowsInserted = statement.executeUpdate();
+			getCustomerId();
 			
 			return rowsInserted;
 		}catch (Exception e) {
@@ -57,10 +59,11 @@ public class CustomerDAOImpl implements CustomerDAO{
 				statement.setString(1, customer.getFirstName());
 				statement.setString(2, customer.getLastName());
 				statement.setString(3, customer.getCustomerCreditCardType());
-				statement.setString(9, customer.getCustId());
+				statement.setString(4, customer.getCustId());
 				
 				
 				int rowsUpdated = statement.executeUpdate();
+//				getCustomerId();
 				return rowsUpdated;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -79,6 +82,7 @@ public class CustomerDAOImpl implements CustomerDAO{
 					statement.setString(1, custId);
 					
 					int rowsDeleted = statement.executeUpdate();
+//					getCustomerId();
 					return rowsDeleted;
 			} catch (Exception e) {
 					e.printStackTrace();
@@ -102,8 +106,8 @@ public class CustomerDAOImpl implements CustomerDAO{
 				customer.setFirstName(rs.getString("FIRSTNAME"));
 				customer.setLastName(rs.getString("LASTNAME"));
 				customer.setDateOfBirth(rs.getDate("dateofbirth"));
-				customer.setGender(rs.getString("gender"));
 				customer.setCustomerCreditCardType(rs.getString("customercreditcard"));
+				customer.setGender(rs.getBoolean("gender"));
 			}
 			
 		} catch (Exception e) {
@@ -128,8 +132,8 @@ public class CustomerDAOImpl implements CustomerDAO{
 				customer.setFirstName(rs.getString("firstname"));
 				customer.setLastName(rs.getString("lastname"));
 				customer.setDateOfBirth(rs.getDate("dateofbirth"));
-				customer.setGender(rs.getString("gender"));
 				customer.setCustomerCreditCardType(rs.getString("customercreditcard"));
+				customer.setGender(rs.getBoolean("gender"));
 				list.add(customer);
 			}
 
@@ -140,5 +144,27 @@ public class CustomerDAOImpl implements CustomerDAO{
 		return list;
 
 	}
+	@Override
+	public String getCustomerId(){
+		String sql = "SELECT custid FROM CUSTOMER WHERE id =(SELECT LAST_INSERT_ID())";
+		Customer customer = new Customer();
+		String custId = "";
+		try {
+			
+			statement = con.prepareStatement(sql);
+			ResultSet rs= statement.executeQuery();
+			
+			while(rs.next()) {
+			 custId = rs.getString("custid");
+			}
+			
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return custId;
+	}
+	
+	
 
 }

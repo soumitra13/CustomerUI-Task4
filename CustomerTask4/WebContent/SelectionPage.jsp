@@ -57,6 +57,10 @@ Customer ID<br><input type="text" name="CID" value="" ><br/>
 First Name<br><input type="text" name="Custfirst"  value="" ><br/>
 Last Name<br><input type="text" name="Custlast"  value="" ><br/>  
 Date of birth<br><input type="date" value=""></br>
+Gender:<br><select>
+	<option value="Male">Male</option>
+	<option value="Female">Female</option>	
+</select>
 Customer creditcard type:<br><select>
   <option value="Master">Master</option>
   <option value="Visa">Visa</option>

@@ -8,7 +8,7 @@ public class Customer {
 	private String firstName;
 	private String lastName;
 	private Date dateOfBirth;
-	private String gender;
+	private Boolean gender;
 	private String customerCreditCardType;
 	
 	
@@ -43,11 +43,11 @@ public class Customer {
 		this.dateOfBirth = dateOfBirth;
 	}
 	
-	public String getGender() {
+	public boolean getGender() {
 		return gender;
 	}
 	
-	public void setGender(String gender) {
+	public void setGender(boolean gender) {
 		this.gender = gender;
 	}
 	
