@@ -37,7 +37,7 @@ public class CustomerDAOImpl implements CustomerDAO{
 			statement.setString(4, lastName);
 			statement.setDate(5, convertUtiltoSql(customer.getDateOfBirth()));			
 			statement.setString(6, customer.getCustomerCreditCardType());
-			statement.setBoolean(7, customer.getGender());
+			statement.setInt(7, Integer.valueOf(customer.getGender()));
 			int rowsInserted = statement.executeUpdate();
 			getCustomerId();
 			
@@ -107,7 +107,7 @@ public class CustomerDAOImpl implements CustomerDAO{
 				customer.setLastName(rs.getString("LASTNAME"));
 				customer.setDateOfBirth(rs.getDate("dateofbirth"));
 				customer.setCustomerCreditCardType(rs.getString("customercreditcard"));
-				customer.setGender(rs.getBoolean("gender"));
+				customer.setGender(rs.getString("gender"));
 			}
 			
 		} catch (Exception e) {
@@ -133,7 +133,7 @@ public class CustomerDAOImpl implements CustomerDAO{
 				customer.setLastName(rs.getString("lastname"));
 				customer.setDateOfBirth(rs.getDate("dateofbirth"));
 				customer.setCustomerCreditCardType(rs.getString("customercreditcard"));
-				customer.setGender(rs.getBoolean("gender"));
+				customer.setGender(rs.getString("gender"));
 				list.add(customer);
 			}
 

@@ -43,7 +43,7 @@ pageEncoding="ISO-8859-1"%>
 	        />
       	</div>
 	  	<div class="col-md-8">
-	  		<form name="customer_regform" action="CustomerRegister" method="post">
+	  		<form name="customer_regform" id="customer_regform" action="CustomerRegister" method="post">
 	          <img
 	            class="img-responsive"
 	            style="width: 100px;"
@@ -100,8 +100,9 @@ pageEncoding="ISO-8859-1"%>
 	            <label for="gender"> <b>Gender</b> </label>
 	            <!-- <input class="form-control" type="number" placeholder="Enter Zipcode" name="customer_zipcode" id="zipcode"> -->
 	            <select id="gender" name="gender" class="form-control">
-	              <option selected>Female</option>
-	              <option>Male</option>
+	              <option value="" selected>Select One</option>
+	              <option value= 0 >Female</option>
+	              <option value= 1>Male</option>
 	            </select>
 	            <br />
 	          </div>
@@ -122,8 +123,6 @@ pageEncoding="ISO-8859-1"%>
 	            type="submit"
 	            name="submit"
 	            value="insert"
-	            
-	       		onclick = "displayTable();"
 	        	class="btn btn-primary"
 	            id="btnRegister">
 	            Generate
@@ -133,10 +132,9 @@ pageEncoding="ISO-8859-1"%>
 	            type="submit"
 	            name="submit"
 	            value="view"
-	            onclick="displayTable();"
 	            id="btnRegister"
 	            class="btn btn-primary"
-	            action="popup.jsp"
+	            
 	          >
 	            View Customer
 	          </button>
@@ -144,10 +142,9 @@ pageEncoding="ISO-8859-1"%>
 	            type="submit"
 	            name="submit"
 	            value="delete"
-	            onclick="displayTable();"
 	            id="btnRegister"
 	            class="btn btn-primary"
-	            action="popup.jsp"
+	            
 	          >
 	            Delete Customer
 	          </button>
@@ -155,10 +152,9 @@ pageEncoding="ISO-8859-1"%>
 	            type="submit"
 	            name="submit"
 	            value="update"
-	            onclick="displayTable();"
 	            id="btnRegister"
 	            class="btn btn-primary"
-	            action="popup.jsp"
+	            
 	          >
 	            Update Customer
 	          </button>
@@ -171,7 +167,7 @@ pageEncoding="ISO-8859-1"%>
   	<div class="container">
   		<div class="col-md-1"></div>
         <div class="col=md-10">
-        
+        	<c:if test = "${customers != null}">
             <table class="table" id="customerTable">
                 <thead class="thead-primary">
                     <tr>
@@ -184,34 +180,28 @@ pageEncoding="ISO-8859-1"%>
                     </tr>
                 </thead>
                 <tbody>
+                
                     <tr>
                         <td scope="row">${customers.custId}</td>
                         <td scope="row">${customers.firstName}</td>
                         <td scope="row">${customers.lastName}</td>
                         <td scope="row">${customers.dateOfBirth}</td>
-                        <td scope="row">${customers.gender}</td>
+                        <c:choose>
+                        <c:when test="${customers.gender == 1}">
+                        <td scope="row">Male</td>
+                        </c:when>
+                        <c:otherwise>
+                        <td scope="row">Female</td>
+                        </c:otherwise>
+                        </c:choose>
                         <td scope="row">${customers.customerCreditCardType}</td>
                     </tr>
+                   
                 </tbody>
             </table>
+            </c:if> 
         </div>
       <div class="col-md-1"></div>
   	</div>
   </body>
-  <script>
-  function displayTable(){
-	 
-	  var x = document.getElementById("customerTable");
-		  if (x.style.display === "none") {
-		    x.style.display = "block";
-		  }  
-	 
-
-	 // else {
-	 //   x.style.display = "none";
-	 // }
-	  
-		 // document.getElementById("customerTable").style.display = "block";  
-  }
-  </script>
 </html>

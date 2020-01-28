@@ -2,6 +2,8 @@ package CustomerTask4.Servlets;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,18 +30,31 @@ public class CustomerRegister extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
-		processRequest(request, response);
+		try {
+			processRequest(request, response);
+		} catch (ServletException | IOException | ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
-		processRequest(request, response);
+		try {
+			processRequest(request, response);
+		} catch (ServletException | IOException | ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}	
 	
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException{
 		CustomerDAO customerDAO = new CustomerDAOImpl();
 		Customer customer = new Customer();
-		Date date = new Date();
+		String dateOfBirth = request.getParameter("dateofbirth");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = sdf.parse(dateOfBirth);
+		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 		String submitType = request.getParameter("submit");
 	
 		String custId = "";
@@ -48,8 +63,8 @@ public class CustomerRegister extends HttpServlet {
 			
 			customer.setFirstName(request.getParameter("Custfirst"));
 			customer.setLastName(request.getParameter("Custlast"));
-			customer.setDateOfBirth(date);
-			customer.setGender(Boolean.parseBoolean(request.getParameter("gender")));
+			customer.setDateOfBirth(sqlDate);
+			customer.setGender(request.getParameter("gender"));
 			customer.setCustomerCreditCardType(request.getParameter("customercreditcardtype")); 
 			int a = customerDAO.insertCustomerDetails(customer); 
 			System.out.println(a); 
