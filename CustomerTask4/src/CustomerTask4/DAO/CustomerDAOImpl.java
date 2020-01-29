@@ -3,7 +3,6 @@ package CustomerTask4.DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -147,7 +146,7 @@ public class CustomerDAOImpl implements CustomerDAO{
 	@Override
 	public String getCustomerId(){
 		String sql = "SELECT custid FROM CUSTOMER WHERE id =(SELECT LAST_INSERT_ID())";
-		Customer customer = new Customer();
+//		Customer customer = new Customer();
 		String custId = "";
 		try {
 			

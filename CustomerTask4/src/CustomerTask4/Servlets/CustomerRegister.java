@@ -1,19 +1,19 @@
 package CustomerTask4.Servlets;
 
 import java.io.IOException;
-import java.sql.SQLException;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+
 import java.util.Date;
-import java.util.List;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
 
 import CustomerTask4.DAO.CustomerDAO;
 import CustomerTask4.DAO.CustomerDAOImpl;
@@ -73,9 +73,10 @@ public class CustomerRegister extends HttpServlet {
 			  {
 				  customer = customerDAO.viewCustomerDetails(custId);
 				  request.setAttribute("customers", customer);
-				  request.getRequestDispatcher("Popup.jsp").forward(request, response);
+//				  response.sendRedirect("Popup.jsp");
+				  request.getRequestDispatcher("Popup.jsp").forward(request, response);   
 			  }else {
-					  System.out.println("Does not go inside"); 
+					  System.out.println("Insert Unsuccessful"); 
 			  }
 
 		}else if(submitType.equals("view")) {
@@ -91,7 +92,7 @@ public class CustomerRegister extends HttpServlet {
 		}else if(submitType.equals("delete")) {
 			custId = request.getParameter("CID");
 			customer = customerDAO.viewCustomerDetails(custId);
-			int a = customerDAO.deleteCustomerDetails(custId);			  
+			customerDAO.deleteCustomerDetails(custId);			  
 			
 		  	request.setAttribute("customers", customer);
 		  	request.getRequestDispatcher("Popup.jsp").forward(request, response);
@@ -111,6 +112,8 @@ public class CustomerRegister extends HttpServlet {
 			  }else {
 					  System.out.println("Does not go inside"); 
 			  }
+		}else {
+			response.sendRedirect("Popup.jsp");
 		}
 			
 			  		

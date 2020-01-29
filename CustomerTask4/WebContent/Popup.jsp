@@ -113,9 +113,10 @@ pageEncoding="ISO-8859-1"%>
 	              name="customercreditcardtype"
 	              class="form-control"
 	            >
+	              <option value="" selected>Select One</option>	
 	              <option value="Master">Master</option>
 	              <option value="Visa">Visa</option>
-	              <option value="Amex">Amex</option>
+	              <option value="Amex">American Express</option>
 	            </select>
 	          </div>
 	          <br />
